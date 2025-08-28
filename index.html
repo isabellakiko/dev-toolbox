@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>开发者工具箱 - Developer Toolbox</title>
+    
+    <!-- SEO Meta标签 -->
+    <meta name="description" content="专业的开发者工具箱，包含GUID生成、密码生成、哈希编码、时间戳转换等实用工具">
+    <meta name="keywords" content="开发者工具,GUID生成,UUID生成,密码生成器,哈希工具,Base64编码,时间戳转换">
+    <meta name="author" content="Stephen Chan">
+    
+    <!-- Open Graph 分享标签 -->
+    <meta property="og:title" content="开发者工具箱 - Developer Toolbox">
+    <meta property="og:description" content="专业的开发者工具箱，提供各种实用的开发工具">
+    <meta property="og:image" content="https://kaylonchan.com/photos/avatar_isabel_myers.jpg">
+    <meta property="og:url" content="https://kaylonchan.com/dev-toolbox/">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Stephen 开发者工具">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="开发者工具箱 - Developer Toolbox">
+    <meta name="twitter:description" content="专业的开发者工具箱，提供各种实用的开发工具">
+    <meta name="twitter:image" content="https://kaylonchan.com/photos/avatar_isabel_myers.jpg">
+    
+    <!-- 样式和脚本 -->
+    <link rel="stylesheet" href="toolbox.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="icon" type="image/png" href="../photos/Apple_logo_black.png">
+    <link rel="manifest" href="manifest.json">
+    
+    <!-- PWA主题色 -->
+    <meta name="theme-color" content="#1a1a1a">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+</head>
+<body>
+    <!-- 顶部导航栏 -->
+    <header class="top-header">
+        <div class="header-content">
+            <div class="logo-section">
+                <a href="../index.html" class="back-link">
+                    <i class="fas fa-arrow-left"></i>
+                </a>
+                <div class="logo">
+                    <i class="fas fa-toolbox"></i>
+                    <span>开发者工具箱</span>
+                </div>
+            </div>
+            <div class="header-actions">
+                <button class="theme-toggle" id="themeToggle" title="切换主题">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <button class="history-toggle" id="historyToggle" title="历史记录">
+                    <i class="fas fa-history"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- 主要布局 -->
+    <div class="main-layout">
+        <!-- 侧边栏导航 -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h3>工具导航</h3>
+                <button class="sidebar-toggle" id="sidebarToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <div class="nav-group">
+                    <h4>生成工具</h4>
+                    <a href="#guid-generator" class="nav-item active" data-tool="guid-generator">
+                        <i class="fas fa-fingerprint"></i>
+                        <span>GUID/UUID生成器</span>
+                    </a>
+                    <a href="#password-generator" class="nav-item" data-tool="password-generator">
+                        <i class="fas fa-key"></i>
+                        <span>密码生成器</span>
+                    </a>
+                    <a href="#random-data" class="nav-item" data-tool="random-data">
+                        <i class="fas fa-dice"></i>
+                        <span>随机数据生成</span>
+                    </a>
+                </div>
+                
+                <div class="nav-group">
+                    <h4>编码工具</h4>
+                    <a href="#hash-encode" class="nav-item" data-tool="hash-encode">
+                        <i class="fas fa-lock"></i>
+                        <span>哈希/编码工具</span>
+                    </a>
+                    <a href="#timestamp" class="nav-item" data-tool="timestamp">
+                        <i class="fas fa-clock"></i>
+                        <span>时间戳转换</span>
+                    </a>
+                </div>
+                
+                <div class="nav-group">
+                    <h4>文本工具</h4>
+                    <a href="#text-tools" class="nav-item" data-tool="text-tools">
+                        <i class="fas fa-edit"></i>
+                        <span>文本处理工具</span>
+                    </a>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- 主内容区域 -->
+        <main class="main-content">
+            <!-- GUID/UUID生成器 -->
+            <div class="tool-section active" id="guid-generator">
+                <div class="tool-header">
+                    <h2><i class="fas fa-fingerprint"></i> GUID/UUID生成器</h2>
+                    <p>生成全球唯一标识符，支持不同版本格式</p>
+                </div>
+                
+                <div class="tool-controls">
+                    <div class="control-group">
+                        <label for="guidVersion">UUID版本:</label>
+                        <select id="guidVersion">
+                            <option value="v1">UUID v1 (时间戳)</option>
+                            <option value="v4" selected>UUID v4 (随机)</option>
+                            <option value="v5">UUID v5 (命名空间)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="control-group">
+                        <label for="guidFormat">输出格式:</label>
+                        <select id="guidFormat">
+                            <option value="standard">标准格式 (带连字符)</option>
+                            <option value="simple">简单格式 (无连字符)</option>
+                            <option value="uppercase">大写格式</option>
+                            <option value="braces">花括号格式</option>
+                        </select>
+                    </div>
+                    
+                    <div class="control-group">
+                        <label for="guidCount">生成数量:</label>
+                        <select id="guidCount">
+                            <option value="1">1个</option>
+                            <option value="5">5个</option>
+                            <option value="10">10个</option>
+                            <option value="20">20个</option>
+                        </select>
+                    </div>
+                    
+                    <button class="btn-primary" id="generateGuid">
+                        <i class="fas fa-magic"></i>
+                        生成GUID
+                    </button>
+                </div>
+                
+                <div class="tool-output">
+                    <div class="output-header">
+                        <h3>生成结果</h3>
+                        <button class="btn-secondary" id="copyAllGuids">
+                            <i class="fas fa-copy"></i>
+                            复制全部
+                        </button>
+                    </div>
+                    <div class="output-content" id="guidOutput">
+                        <div class="placeholder">点击"生成GUID"开始使用</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 密码生成器 -->
+            <div class="tool-section" id="password-generator">
+                <div class="tool-header">
+                    <h2><i class="fas fa-key"></i> 密码生成器</h2>
+                    <p>生成安全的随机密码，支持自定义配置</p>
+                </div>
+                
+                <div class="tool-controls">
+                    <div class="control-group">
+                        <label for="passwordLength">密码长度:</label>
+                        <input type="range" id="passwordLength" min="4" max="128" value="16">
+                        <span id="passwordLengthValue">16</span>
+                    </div>
+                    
+                    <div class="checkbox-group">
+                        <label class="checkbox-item">
+                            <input type="checkbox" id="includeUppercase" checked>
+                            <span class="checkmark"></span>
+                            包含大写字母 (A-Z)
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" id="includeLowercase" checked>
+                            <span class="checkmark"></span>
+                            包含小写字母 (a-z)
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" id="includeNumbers" checked>
+                            <span class="checkmark"></span>
+                            包含数字 (0-9)
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" id="includeSpecial">
+                            <span class="checkmark"></span>
+                            包含特殊字符 (!@#$%^&*)
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" id="excludeAmbiguous" checked>
+                            <span class="checkmark"></span>
+                            排除易混淆字符 (0oO1lI)
+                        </label>
+                    </div>
+                    
+                    <div class="control-group">
+                        <label for="passwordCount">生成数量:</label>
+                        <select id="passwordCount">
+                            <option value="1">1个</option>
+                            <option value="5">5个</option>
+                            <option value="10">10个</option>
+                        </select>
+                    </div>
+                    
+                    <button class="btn-primary" id="generatePassword">
+                        <i class="fas fa-shield-alt"></i>
+                        生成密码
+                    </button>
+                </div>
+                
+                <div class="tool-output">
+                    <div class="output-header">
+                        <h3>生成的密码</h3>
+                        <div class="password-strength" id="passwordStrength"></div>
+                    </div>
+                    <div class="output-content" id="passwordOutput">
+                        <div class="placeholder">点击"生成密码"开始使用</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 随机数据生成器 -->
+            <div class="tool-section" id="random-data">
+                <div class="tool-header">
+                    <h2><i class="fas fa-dice"></i> 随机数据生成器</h2>
+                    <p>生成各种类型的随机数据</p>
+                </div>
+                
+                <div class="tool-controls">
+                    <div class="tab-controls">
+                        <button class="tab-btn active" data-tab="numbers">数字</button>
+                        <button class="tab-btn" data-tab="strings">字符串</button>
+                        <button class="tab-btn" data-tab="colors">颜色</button>
+                        <button class="tab-btn" data-tab="network">网络</button>
+                    </div>
+                    
+                    <!-- 数字生成 -->
+                    <div class="tab-content active" id="numbers">
+                        <div class="control-group">
+                            <label for="numberMin">最小值:</label>
+                            <input type="number" id="numberMin" value="1">
+                        </div>
+                        <div class="control-group">
+                            <label for="numberMax">最大值:</label>
+                            <input type="number" id="numberMax" value="100">
+                        </div>
+                        <div class="control-group">
+                            <label for="numberCount">生成数量:</label>
+                            <input type="number" id="numberCount" value="10" min="1" max="100">
+                        </div>
+                        <button class="btn-primary" id="generateNumbers">
+                            <i class="fas fa-hashtag"></i>
+                            生成随机数字
+                        </button>
+                    </div>
+                    
+                    <!-- 字符串生成 -->
+                    <div class="tab-content" id="strings">
+                        <div class="control-group">
+                            <label for="stringLength">字符串长度:</label>
+                            <input type="number" id="stringLength" value="10" min="1" max="50">
+                        </div>
+                        <div class="control-group">
+                            <label for="stringCount">生成数量:</label>
+                            <input type="number" id="stringCount" value="5" min="1" max="20">
+                        </div>
+                        <button class="btn-primary" id="generateStrings">
+                            <i class="fas fa-font"></i>
+                            生成随机字符串
+                        </button>
+                    </div>
+                    
+                    <!-- 颜色生成 -->
+                    <div class="tab-content" id="colors">
+                        <div class="control-group">
+                            <label for="colorFormat">颜色格式:</label>
+                            <select id="colorFormat">
+                                <option value="hex">HEX (#ffffff)</option>
+                                <option value="rgb">RGB (255, 255, 255)</option>
+                                <option value="hsl">HSL (360, 100%, 50%)</option>
+                            </select>
+                        </div>
+                        <div class="control-group">
+                            <label for="colorCount">生成数量:</label>
+                            <input type="number" id="colorCount" value="8" min="1" max="20">
+                        </div>
+                        <button class="btn-primary" id="generateColors">
+                            <i class="fas fa-palette"></i>
+                            生成随机颜色
+                        </button>
+                    </div>
+                    
+                    <!-- 网络数据生成 -->
+                    <div class="tab-content" id="network">
+                        <div class="control-group">
+                            <label for="networkType">数据类型:</label>
+                            <select id="networkType">
+                                <option value="ip">IP地址</option>
+                                <option value="mac">MAC地址</option>
+                                <option value="port">端口号</option>
+                            </select>
+                        </div>
+                        <div class="control-group">
+                            <label for="networkCount">生成数量:</label>
+                            <input type="number" id="networkCount" value="5" min="1" max="20">
+                        </div>
+                        <button class="btn-primary" id="generateNetwork">
+                            <i class="fas fa-network-wired"></i>
+                            生成网络数据
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="tool-output">
+                    <div class="output-header">
+                        <h3>生成结果</h3>
+                        <button class="btn-secondary" id="copyRandomData">
+                            <i class="fas fa-copy"></i>
+                            复制结果
+                        </button>
+                    </div>
+                    <div class="output-content" id="randomDataOutput">
+                        <div class="placeholder">选择数据类型并点击生成按钮</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 哈希/编码工具 -->
+            <div class="tool-section" id="hash-encode">
+                <div class="tool-header">
+                    <h2><i class="fas fa-lock"></i> 哈希/编码工具</h2>
+                    <p>文本哈希加密和编码转换工具</p>
+                </div>
+                
+                <div class="tool-controls">
+                    <div class="control-group">
+                        <label for="inputText">输入文本:</label>
+                        <textarea id="inputText" placeholder="请输入要处理的文本..." rows="4"></textarea>
+                    </div>
+                    
+                    <div class="button-group">
+                        <button class="btn-primary" data-action="md5">
+                            <i class="fas fa-shield-alt"></i>
+                            MD5
+                        </button>
+                        <button class="btn-primary" data-action="sha1">
+                            <i class="fas fa-shield-alt"></i>
+                            SHA1
+                        </button>
+                        <button class="btn-primary" data-action="sha256">
+                            <i class="fas fa-shield-alt"></i>
+                            SHA256
+                        </button>
+                        <button class="btn-secondary" data-action="base64-encode">
+                            <i class="fas fa-arrow-up"></i>
+                            Base64编码
+                        </button>
+                        <button class="btn-secondary" data-action="base64-decode">
+                            <i class="fas fa-arrow-down"></i>
+                            Base64解码
+                        </button>
+                        <button class="btn-secondary" data-action="url-encode">
+                            <i class="fas fa-link"></i>
+                            URL编码
+                        </button>
+                        <button class="btn-secondary" data-action="url-decode">
+                            <i class="fas fa-unlink"></i>
+                            URL解码
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="tool-output">
+                    <div class="output-header">
+                        <h3>处理结果</h3>
+                        <button class="btn-secondary" id="copyHashResult">
+                            <i class="fas fa-copy"></i>
+                            复制结果
+                        </button>
+                    </div>
+                    <div class="output-content" id="hashOutput">
+                        <div class="placeholder">输入文本并选择处理方式</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 时间戳转换器 -->
+            <div class="tool-section" id="timestamp">
+                <div class="tool-header">
+                    <h2><i class="fas fa-clock"></i> 时间戳转换器</h2>
+                    <p>时间戳与日期时间之间的相互转换</p>
+                </div>
+                
+                <div class="tool-controls">
+                    <div class="tab-controls">
+                        <button class="tab-btn active" data-tab="timestamp-to-date">时间戳→日期</button>
+                        <button class="tab-btn" data-tab="date-to-timestamp">日期→时间戳</button>
+                        <button class="tab-btn" data-tab="current-time">当前时间</button>
+                    </div>
+                    
+                    <!-- 时间戳到日期 -->
+                    <div class="tab-content active" id="timestamp-to-date">
+                        <div class="control-group">
+                            <label for="timestampInput">时间戳:</label>
+                            <input type="text" id="timestampInput" placeholder="输入时间戳 (秒或毫秒)">
+                        </div>
+                        <div class="control-group">
+                            <label for="timestampUnit">单位:</label>
+                            <select id="timestampUnit">
+                                <option value="seconds">秒 (10位)</option>
+                                <option value="milliseconds">毫秒 (13位)</option>
+                            </select>
+                        </div>
+                        <button class="btn-primary" id="convertTimestamp">
+                            <i class="fas fa-exchange-alt"></i>
+                            转换为日期
+                        </button>
+                    </div>
+                    
+                    <!-- 日期到时间戳 -->
+                    <div class="tab-content" id="date-to-timestamp">
+                        <div class="control-group">
+                            <label for="dateInput">选择日期:</label>
+                            <input type="datetime-local" id="dateInput">
+                        </div>
+                        <button class="btn-primary" id="convertDate">
+                            <i class="fas fa-exchange-alt"></i>
+                            转换为时间戳
+                        </button>
+                    </div>
+                    
+                    <!-- 当前时间 -->
+                    <div class="tab-content" id="current-time">
+                        <div class="current-time-display">
+                            <div class="time-card">
+                                <h4>当前时间</h4>
+                                <div id="currentDateTime">--</div>
+                            </div>
+                            <div class="time-card">
+                                <h4>时间戳(秒)</h4>
+                                <div id="currentTimestampSeconds">--</div>
+                            </div>
+                            <div class="time-card">
+                                <h4>时间戳(毫秒)</h4>
+                                <div id="currentTimestampMillis">--</div>
+                            </div>
+                        </div>
+                        <button class="btn-secondary" id="refreshTime">
+                            <i class="fas fa-sync-alt"></i>
+                            刷新时间
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="tool-output">
+                    <div class="output-header">
+                        <h3>转换结果</h3>
+                        <button class="btn-secondary" id="copyTimeResult">
+                            <i class="fas fa-copy"></i>
+                            复制结果
+                        </button>
+                    </div>
+                    <div class="output-content" id="timeOutput">
+                        <div class="placeholder">选择转换类型并输入数据</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 文本处理工具 -->
+            <div class="tool-section" id="text-tools">
+                <div class="tool-header">
+                    <h2><i class="fas fa-edit"></i> 文本处理工具</h2>
+                    <p>各种文本格式处理和转换工具</p>
+                </div>
+                
+                <div class="tool-controls">
+                    <div class="control-group">
+                        <label for="textInput">输入文本:</label>
+                        <textarea id="textInput" placeholder="请输入要处理的文本..." rows="6"></textarea>
+                    </div>
+                    
+                    <div class="button-group">
+                        <button class="btn-primary" data-action="uppercase">
+                            <i class="fas fa-font"></i>
+                            转大写
+                        </button>
+                        <button class="btn-primary" data-action="lowercase">
+                            <i class="fas fa-font"></i>
+                            转小写
+                        </button>
+                        <button class="btn-primary" data-action="capitalize">
+                            <i class="fas fa-font"></i>
+                            首字母大写
+                        </button>
+                        <button class="btn-secondary" data-action="reverse">
+                            <i class="fas fa-undo"></i>
+                            反转文本
+                        </button>
+                        <button class="btn-secondary" data-action="remove-spaces">
+                            <i class="fas fa-compress"></i>
+                            移除空格
+                        </button>
+                        <button class="btn-secondary" data-action="remove-duplicates">
+                            <i class="fas fa-filter"></i>
+                            去重
+                        </button>
+                        <button class="btn-secondary" data-action="word-count">
+                            <i class="fas fa-calculator"></i>
+                            字数统计
+                        </button>
+                        <button class="btn-secondary" data-action="sort-lines">
+                            <i class="fas fa-sort"></i>
+                            行排序
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="tool-output">
+                    <div class="output-header">
+                        <h3>处理结果</h3>
+                        <button class="btn-secondary" id="copyTextResult">
+                            <i class="fas fa-copy"></i>
+                            复制结果
+                        </button>
+                    </div>
+                    <div class="output-content" id="textOutput">
+                        <div class="placeholder">输入文本并选择处理方式</div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- 历史记录面板 -->
+    <div class="history-panel" id="historyPanel">
+        <div class="history-header">
+            <h3>历史记录</h3>
+            <div class="history-actions">
+                <button class="btn-secondary" id="clearHistory">
+                    <i class="fas fa-trash"></i>
+                    清空
+                </button>
+                <button class="close-btn" id="closeHistory">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+        <div class="history-content" id="historyContent">
+            <div class="placeholder">暂无历史记录</div>
+        </div>
+    </div>
+
+    <!-- 通知容器 -->
+    <div class="notification-container" id="notifications"></div>
+
+    <!-- 脚本文件 -->
+    <script src="toolbox.js"></script>
+</body>
+</html>

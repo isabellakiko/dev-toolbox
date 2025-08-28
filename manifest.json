@@ -1,0 +1,127 @@
+{
+  "name": "开发者工具箱 - Developer Toolbox",
+  "short_name": "DevToolbox",
+  "description": "专业的开发者工具集合，包含GUID生成、密码生成、哈希编码、时间戳转换等实用工具",
+  "version": "1.0.0",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "theme_color": "#1a1a1a",
+  "background_color": "#121212",
+  "scope": "./",
+  "lang": "zh-CN",
+  "dir": "ltr",
+  
+  "icons": [
+    {
+      "src": "../photos/Apple_logo_black.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "../photos/Apple_logo_black.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  
+  "categories": [
+    "productivity",
+    "utilities",
+    "developer"
+  ],
+  
+  "shortcuts": [
+    {
+      "name": "GUID生成器",
+      "short_name": "GUID",
+      "description": "生成UUID/GUID",
+      "url": "./index.html#guid-generator",
+      "icons": [
+        {
+          "src": "../photos/Apple_logo_black.png",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "密码生成器",
+      "short_name": "密码",
+      "description": "生成安全密码",
+      "url": "./index.html#password-generator",
+      "icons": [
+        {
+          "src": "../photos/Apple_logo_black.png",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "哈希工具",
+      "short_name": "哈希",
+      "description": "文本哈希和编码",
+      "url": "./index.html#hash-encode",
+      "icons": [
+        {
+          "src": "../photos/Apple_logo_black.png",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "时间戳转换",
+      "short_name": "时间戳",
+      "description": "时间戳格式转换",
+      "url": "./index.html#timestamp",
+      "icons": [
+        {
+          "src": "../photos/Apple_logo_black.png",
+          "sizes": "96x96"
+        }
+      ]
+    }
+  ],
+  
+  "screenshots": [
+    {
+      "src": "./screenshots/desktop-main.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "platform": "wide",
+      "label": "开发者工具箱桌面版主界面"
+    },
+    {
+      "src": "./screenshots/mobile-main.png",
+      "sizes": "390x844",
+      "type": "image/png",
+      "platform": "narrow",
+      "label": "开发者工具箱移动版主界面"
+    }
+  ],
+  
+  "prefer_related_applications": false,
+  
+  "edge_side_panel": {
+    "preferred_width": 400
+  },
+  
+  "protocol_handlers": [
+    {
+      "protocol": "web+devtools",
+      "url": "./index.html?tool=%s"
+    }
+  ],
+  
+  "file_handlers": [
+    {
+      "action": "./index.html#text-tools",
+      "accept": {
+        "text/plain": [".txt"],
+        "text/csv": [".csv"],
+        "application/json": [".json"]
+      }
+    }
+  ]
+}
