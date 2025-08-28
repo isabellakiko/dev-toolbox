@@ -476,7 +476,7 @@ MIT License - 详见 [LICENSE](LICENSE) 文件
 ## 📞 联系方式
 
 - 作者：Stephen Chan
-- 邮箱：stephen@kaylonchan.com
+- 邮箱：kaylonchan@gmail.com
 - 网站：[kaylonchan.com](https://kaylonchan.com)
 - GitHub：[@stephenchan](https://github.com/stephenchan)
 
